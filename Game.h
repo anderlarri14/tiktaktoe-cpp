@@ -14,8 +14,15 @@ private:
 	Player playerB;
 	GameState state;
 
+	void setupGame();
+	void askForInput(std::vector<int> &cell);
+	void changeTurn();
+	void checkWinner();
+	void setWinner(char s);
+
 public:
 	Game();
+	void Start();
 
 
 };

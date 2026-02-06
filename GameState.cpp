@@ -7,3 +7,8 @@ GameState::GameState()
 {
 	std::cout << "GameState initialized." << std::endl;
 }
+
+void GameState::setWinner(Player& winner) {
+	this->winner = winner;
+    this->isGameOver = true;
+}

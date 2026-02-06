@@ -7,6 +7,8 @@ int main()
 {
 	Game tiktaktoe;
 
+	tiktaktoe.Start();
+
 	return 0;
 }
 
