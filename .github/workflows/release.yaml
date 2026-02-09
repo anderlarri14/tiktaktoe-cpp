@@ -35,7 +35,9 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         files: |
-          build/Release/TikTakToe*
-          build/TikTakToe*
+          build/Release/*.exe
+          build/Release/TikTakToe
+          build/TikTakToe
+        fail_on_unmatched_files: false
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
