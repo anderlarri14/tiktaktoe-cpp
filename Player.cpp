@@ -1,8 +1,7 @@
 #include "Player.h"
 
 Player::Player()
-	: name{}
-	, symbol{}
+	: name{' '}
+	, symbol{'D'}
 {
-	std::cout << "Player initialized." << std::endl;
 }

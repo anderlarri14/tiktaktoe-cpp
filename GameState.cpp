@@ -5,7 +5,6 @@ GameState::GameState()
 	, currentPlayer{ Player() }
 	, winner{ Player() }
 {
-	std::cout << "GameState initialized." << std::endl;
 }
 
 void GameState::setWinner(Player& winner) {

@@ -16,6 +16,8 @@ public:
 	bool isPositionValid(std::vector<int>&cell);
 	void makeMove(std::vector<int>& cell, Player& currentPlayer);
 	void drawBoard(GameState& state);
+	bool endGame(GameState& state);
+	void resetBoard();
 
 	std::vector<std::vector<char>>& getGrid() { return grid; };
 	void setGrid(std::vector<std::vector<char>>& grid) { this->grid = grid; };

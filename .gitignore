@@ -362,6 +362,15 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+<<<<<<< HEAD
 *.sln
 *.vcxproj
 *.filters
+=======
+*.suo
+*.user
+*.ncb
+Debug/
+Release/
+CodeAnalyst/
+>>>>>>> 8a8e8ef (Adds final input checks and gitignore changes)

@@ -6,7 +6,6 @@ Game::Game()
 	, playerB{}
 	, state{}
 {
-	std::cout << "Game initialized." << std::endl;
 }
 
 void Game::Start()
@@ -19,34 +18,28 @@ void Game::Start()
 	while (!state.getIsGameOver())
 	{
 		board.drawBoard(state);
-		
-		// Ask for player A/B input
 		askForInput(newMove);
-
-		// Update board with player A/B input taking into account currentPlayer
 		board.makeMove(newMove, state.getCurrentPlayer());
-
+		changeTurn();
 		checkWinner();
 
-		changeTurn();
-		
-
-
-		// Check if game is over
-
-			// If game is over, declare winner and ask if they want to play again
-
-		// If game is not over, switch currentPlayer and keep playing
+		if (state.getWinner().getName() != " ")
+		{
+			bool playAnother = board.endGame(state);
+			if (playAnother)
+			{
+				board.resetBoard();
+				state.getWinner().setName(" ");
+				state.setIsGameOver(false);
+			}
+		}
 	}
-
-	std::cout << "PARTIDA FINIQUITADA CRACK.";
-
 }
 
 void Game::setupGame()
 {
 	std::string playerName;
-	char symbol;
+	char symbol = ' ';
 
 	std::cout << "Starting new TikTakToe game." << std::endl;
 	std::cout << "Enter name for player A:" << std::endl;
@@ -57,8 +50,21 @@ void Game::setupGame()
 	std::cin >> playerName;
 	playerB.setName(playerName);
 
-	std::cout << "What symbol does " << playerA.getName() << " want to use? (X/O)" << std::endl;
-	std::cin >> symbol;
+	while (true)
+	{
+		std::cout << "What symbol does " << playerA.getName() << " want to use? (X/O): ";
+		std::cin >> symbol;
+
+		symbol = toupper(symbol);
+		if (symbol == 'X' || symbol == 'O') {
+			break;
+		}
+
+		std::cout << "Invalid input. Please enter 'X' or 'O'." << std::endl;
+		std::cin.clear();
+		std::cin.ignore(1000, '\n');
+	}
+
 	playerA.setSymbol(symbol);
 	playerB.setSymbol(symbol == 'X' ? 'O' : 'X');
 
@@ -68,23 +74,6 @@ void Game::setupGame()
 
 void Game::askForInput(std::vector<int> &cell)
 {
-
-	//std::cout << "Please enter your move (row):" << std::endl;
-	//// Pregunta: Esta sintaxis es para encapsular el acceso al valor primero y luego a la posición. En caso de no hacerlo así que estaríamos haciendo??
-	//// std::cin >> (*pCell)[0];
-	//// Diferencia con hacerlo mediante referencia?
-	//std::cin >> cell[0];
-	//std::cout << "Please enter your move (column):" << std::endl;
-	//std::cin >> cell[1];
-
-	//// Check if input is valid
-	//if (!board.isPositionValid(cell))
-	//{
-	//	std::cout << "Invalid input. Please select a valid move: (row):" << std::endl;
-	//	std::cin >> cell[0];
-	//	std::cout << "Please enter your move (column):" << std::endl;
-	//	std::cin >> cell[1];
-	//}
 	bool validInput = false;
 
 	while (!validInput) {
@@ -121,7 +110,7 @@ void Game::changeTurn()
 
 void Game::checkWinner()
 {
-	char symbols[3] = {playerA.getSymbol(), playerB.getSymbol()};
+	char symbols[2] = {playerA.getSymbol(), playerB.getSymbol()};
 	std::vector<std::vector<char>> grid = board.getGrid();
 	bool spacesAvailable = false;
 
